@@ -16,7 +16,7 @@ import (
 func Signup(c *gin.Context) {
 	var req dto.SignupRequest
 	if err := c.ShouldBindJSON(&req); err != nil {
-		c.JSON(400, gin.H{"error": "Invalid request"})
+		c.JSON(400, gin.H{"error": err.Error()})
 		return
 	}
 
@@ -27,7 +27,7 @@ func Signup(c *gin.Context) {
 		return
 	}
 
-	if err := db.Where("username = ?", req.Username).First(&existingUser).Error; err != gorm.ErrRecordNotFound {
+	if err := db.Where("username = ?", req.Username).First(&existingUser).Error; err == nil {
 		c.JSON(409, gin.H{"error": "Username already taken"})
 		return
 	}
@@ -73,7 +73,7 @@ func Signup(c *gin.Context) {
 func Login(c *gin.Context) {
 	var req dto.LoginRequest
 	if err := c.ShouldBindJSON(&req); err != nil {
-		c.JSON(400, gin.H{"error": "Invalid request"})
+		c.JSON(400, gin.H{"error": err.Error()})
 		return
 	}
 
