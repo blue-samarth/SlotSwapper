@@ -7,28 +7,29 @@ import (
 )
 
 type SwapStatus string
+
 const (
-	StatusPending  SwapStatus = "PENDING"
-	StatusAccepted SwapStatus = "ACCEPTED"
-	StatusRejected SwapStatus = "REJECTED"
+	StatusPending   SwapStatus = "PENDING"
+	StatusAccepted  SwapStatus = "ACCEPTED"
+	StatusRejected  SwapStatus = "REJECTED"
 	StatusCancelled SwapStatus = "CANCELLED"
 )
 
 type SwapRequest struct {
-	ID            uint           `gorm:"primaryKey" json:"id"`
-	RequesterID   uint           `gorm:"not null;index" json:"requester_id"`
-	ReceiverID    uint           `gorm:"not null;index" json:"receiver_id"`
-	RequesterEventID uint        `gorm:"not null;index" json:"requester_event_id"`
-	ReceiverEventID  uint        `gorm:"not null;index" json:"receiver_event_id"`
-	Status        SwapStatus    `gorm:"type:VARCHAR(20);not null;default:'PENDING'" json:"status"`
-	Requester     User          `gorm:"foreignKey:RequesterID" json:"-"`
-	Receiver      User          `gorm:"foreignKey:ReceiverID" json:"-"`
-	RequesterEvent Event        `gorm:"foreignKey:RequesterEventID" json:"-"`
-	ReceiverEvent  Event        `gorm:"foreignKey:ReceiverEventID" json:"-"`
-	CreatedAt     time.Time     `json:"created_at"`
-	UpdatedAt     time.Time     `json:"updated_at"`
-	DeletedAt     gorm.DeletedAt `gorm:"index" json:"-"`
-	IsDeleted     bool           `gorm:"default:false" json:"is_deleted"`
+	ID               uint           `gorm:"primaryKey" json:"id"`
+	RequesterID      uint           `gorm:"not null;index" json:"requester_id"`
+	ReceiverID       uint           `gorm:"not null;index" json:"receiver_id"`
+	RequesterEventID uint           `gorm:"not null;index" json:"requester_event_id"`
+	ReceiverEventID  uint           `gorm:"not null;index" json:"receiver_event_id"`
+	Status           SwapStatus     `gorm:"type:VARCHAR(20);not null;default:'PENDING'" json:"status"`
+	Requester        User           `gorm:"foreignKey:RequesterID" json:"-"`
+	Receiver         User           `gorm:"foreignKey:ReceiverID" json:"-"`
+	RequesterEvent   Event          `gorm:"foreignKey:RequesterEventID" json:"-"`
+	ReceiverEvent    Event          `gorm:"foreignKey:ReceiverEventID" json:"-"`
+	CreatedAt        time.Time      `json:"created_at"`
+	UpdatedAt        time.Time      `json:"updated_at"`
+	DeletedAt        gorm.DeletedAt `gorm:"index" json:"-"`
+	IsDeleted        bool           `gorm:"default:false" json:"is_deleted"`
 }
 
 func (sr *SwapRequest) Validate(db *gorm.DB) error {
