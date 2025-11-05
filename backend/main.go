@@ -20,6 +20,9 @@ func main() {
 	db := config.ConnectDatabase()
 	if err := db.AutoMigrate(&models.User{}); err != nil {
 		log.Fatal().Err(err).Msg("Failed to migrate database")
+	} 
+	if err := db.AutoMigrate(&models.Event{}); err != nil {
+		log.Fatal().Err(err).Msg("Failed to migrate database")
 	}
 	log.Info().Msg("Database migrated successfully")
 

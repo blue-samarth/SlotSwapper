@@ -17,7 +17,7 @@ func SetupRoutes() *gin.Engine {
 
 	corsConfig := cors.Config{
 		AllowOrigins:     getAllowedOrigins(),
-		AllowMethods:     []string{"GET", "POST", "PUT", "DELETE", "OPTIONS"},
+		AllowMethods:     []string{"GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"},
 		AllowHeaders:     []string{"Origin", "Content-Type", "Authorization"},
 		ExposeHeaders:    []string{"Content-Length"},
 		AllowCredentials: true,
@@ -41,10 +41,10 @@ func SetupRoutes() *gin.Engine {
 	protected := router.Group("/api")
 	protected.Use(middleware.AuthMiddleware())
 	{
-		// protected.GET("/events", controllers.GetEvents)
-		// protected.POST("/events", controllers.CreateEvent)
-		// protected.PUT("/events/:id", controllers.UpdateEvent)
-		// protected.DELETE("/events/:id", controllers.DeleteEvent)
+		protected.GET("/events", controllers.GetEvents)
+		protected.POST("/events", controllers.CreateEvent)
+		protected.PATCH("/events/:id/status", controllers.UpdateEventStatus)
+		protected.DELETE("/events/:id", controllers.DeleteEvent)
 	}
 
 	return router
