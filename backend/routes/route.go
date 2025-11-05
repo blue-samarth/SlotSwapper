@@ -41,10 +41,19 @@ func SetupRoutes() *gin.Engine {
 	protected := router.Group("/api")
 	protected.Use(middleware.AuthMiddleware())
 	{
+		// Event routes
 		protected.GET("/events", controllers.GetEvents)
 		protected.POST("/events", controllers.CreateEvent)
 		protected.PATCH("/events/:id/status", controllers.UpdateEventStatus)
 		protected.DELETE("/events/:id", controllers.DeleteEvent)
+
+		// Swap routes
+		protected.GET("/swappable-slots", controllers.GetSwappableSlots)
+		protected.POST("/swap-request", controllers.InitiateSwap)
+		protected.GET("/swap-requests", controllers.GetMySwapRequests)
+		protected.POST("/swap-request/:id/accept", controllers.AcceptSwap)
+		protected.POST("/swap-request/:id/reject", controllers.RejectSwap)
+		protected.DELETE("/swap-request/:id", controllers.CancelSwap)
 	}
 
 	return router
