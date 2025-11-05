@@ -8,8 +8,8 @@ import (
 	"gorm.io/gorm"
 
 	"SlotSwapper/config"
-	"SlotSwapper/models"
 	"SlotSwapper/dto"
+	"SlotSwapper/models"
 	"SlotSwapper/utils"
 )
 
@@ -33,8 +33,8 @@ func Signup(c *gin.Context) {
 	}
 
 	user := models.User{
-		Username:  req.Username,
-		Email:     strings.ToLower(req.Email),
+		Username: req.Username,
+		Email:    strings.ToLower(req.Email),
 	}
 
 	if err := user.HashPassword(req.Password); err != nil {
@@ -58,11 +58,11 @@ func Signup(c *gin.Context) {
 	}
 
 	response := dto.AuthResponse{
-		Token:    token,
+		Token: token,
 		User: dto.UserInfo{
-			ID:       user.ID,
-			Username: user.Username,
-			Email:    user.Email,
+			ID:        user.ID,
+			Username:  user.Username,
+			Email:     user.Email,
 			CreatedAt: user.CreatedAt.Format(time.RFC3339),
 		},
 	}
@@ -101,11 +101,11 @@ func Login(c *gin.Context) {
 	}
 
 	response := dto.AuthResponse{
-		Token:    token,
+		Token: token,
 		User: dto.UserInfo{
-			ID:       user.ID,
-			Username: user.Username,
-			Email:    user.Email,
+			ID:        user.ID,
+			Username:  user.Username,
+			Email:     user.Email,
 			CreatedAt: user.CreatedAt.Format(time.RFC3339),
 		},
 	}

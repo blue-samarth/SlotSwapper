@@ -49,8 +49,8 @@ func ConnectDatabase() *gorm.DB {
 	}
 
 	sqlDB.SetMaxIdleConns(10)
-	sqlDB.SetMaxOpenConns(100)                  
-	sqlDB.SetConnMaxLifetime(time.Hour)       
+	sqlDB.SetMaxOpenConns(100)
+	sqlDB.SetConnMaxLifetime(time.Hour)
 
 	if err := sqlDB.Ping(); err != nil {
 		log.Fatalf("Failed to ping database: %v", err)

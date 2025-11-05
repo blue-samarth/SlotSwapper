@@ -1,16 +1,17 @@
-package utils 
+package utils
+
 import (
 	"errors"
 	"fmt"
-	"os"
-	"time"
-	"strconv"
 	"github.com/golang-jwt/jwt/v5"
+	"os"
+	"strconv"
+	"time"
 )
 
 type JWTClaims struct {
-	UserID uint `json:"user_id"`
-	Email  string `json:"email"`
+	UserID   uint   `json:"user_id"`
+	Email    string `json:"email"`
 	Username string `json:"username"`
 	jwt.RegisteredClaims
 }
@@ -39,7 +40,7 @@ func GetJWTExpiration() (time.Duration, error) {
 }
 
 func GenerateJWTToken(userID uint, email, username string) (string, error) {
-	expirationTime, err := GetJWTExpiration()	
+	expirationTime, err := GetJWTExpiration()
 	if err != nil {
 		return "", fmt.Errorf("failed to get JWT expiration: %w", err)
 	}

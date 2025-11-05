@@ -1,11 +1,11 @@
 package models
 
 import (
-	"time"
 	"strings"
+	"time"
 
-	"gorm.io/gorm"
 	"golang.org/x/crypto/bcrypt"
+	"gorm.io/gorm"
 )
 
 type User struct {
@@ -16,7 +16,7 @@ type User struct {
 	CreatedAt time.Time      `json:"created_at"`
 	UpdatedAt time.Time      `json:"updated_at"`
 	DeletedAt gorm.DeletedAt `gorm:"index" json:"-"`
-	IsDeleted bool         `gorm:"default:false" json:"is_deleted"`
+	IsDeleted bool           `gorm:"default:false" json:"is_deleted"`
 	// Role	  string         `gorm:"size:50;default:'user'" json:"role"`
 }
 
@@ -27,7 +27,9 @@ func (u *User) BeforeSave(tx *gorm.DB) (err error) {
 
 func (u *User) HashPassword(password string) error {
 	hashedPassword, err := bcrypt.GenerateFromPassword([]byte(password), 12)
-	if err != nil {return err}
+	if err != nil {
+		return err
+	}
 	u.Password = string(hashedPassword)
 	return nil
 }

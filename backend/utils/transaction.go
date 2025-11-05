@@ -1,15 +1,15 @@
 package utils
 
 import (
-    "context"
-    "fmt"
-    "time"
+	"context"
+	"fmt"
+	"time"
 
-    "gorm.io/gorm"
+	"gorm.io/gorm"
 )
 
 type TransactionOptions struct {
-	Timeout       time.Duration
+	Timeout        time.Duration
 	IsolationLevel string
 	// MaxRetries      int
 	// RetryDelay     time.Duration

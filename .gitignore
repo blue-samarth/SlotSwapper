@@ -1,0 +1,143 @@
+.env
+
+# ============================================
+# Go Backend (.gitignore)
+# ============================================
+
+# Binaries for programs and plugins
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+backend/slotswapper
+backend/main
+
+# Test binary, built with `go test -c`
+*.test
+
+# Output of the go coverage tool
+*.out
+
+# Go workspace file
+go.work
+
+# Dependency directories
+vendor/
+
+# Go build cache
+.cache/
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+*.env
+
+# Database files (if using SQLite locally)
+*.db
+*.sqlite
+*.sqlite3
+
+# IDE and Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Log files
+*.log
+logs/
+
+# Temporary files
+tmp/
+temp/
+
+# ============================================
+# Vue.js Frontend (.gitignore)
+# ============================================
+
+# Dependencies
+frontend/node_modules/
+frontend/.pnp
+frontend/.pnp.js
+
+# Production build
+frontend/dist/
+frontend/build/
+
+# Local env files
+frontend/.env.local
+frontend/.env.*.local
+
+# Log files
+frontend/npm-debug.log*
+frontend/yarn-debug.log*
+frontend/yarn-error.log*
+frontend/pnpm-debug.log*
+
+# Editor directories and files
+frontend/.vscode/*
+!frontend/.vscode/extensions.json
+frontend/.idea
+frontend/*.suo
+frontend/*.ntvs*
+frontend/*.njsproj
+frontend/*.sln
+frontend/*.sw?
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Testing
+frontend/coverage/
+frontend/.nyc_output/
+
+# Vite
+frontend/.vite/
+frontend/.vite-inspect/
+
+# ============================================
+# Docker
+# ============================================
+
+# Docker volumes
+docker-data/
+postgres-data/
+
+# ============================================
+# Project Specific
+# ============================================
+
+# Backup files
+*.bak
+*.backup
+
+# Documentation build
+docs/_build/
+
+# Certificate files (if any)
+*.pem
+*.key
+*.crt
+
+# Uploads/user content (if storing locally)
+uploads/
+storage/
+
+# Test data
+test-data/
+
+# Generated files
+*.generated.go
+
+# Air (Go live reload) tmp directory
+tmp/
