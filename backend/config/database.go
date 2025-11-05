@@ -67,3 +67,8 @@ func ConnectDatabase() *gorm.DB {
 func GetDB() *gorm.DB {
 	return DB
 }
+
+// SetDB sets the database instance (used for testing)
+func SetDB(db *gorm.DB) {
+	DB = db
+}

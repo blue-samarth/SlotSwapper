@@ -31,15 +31,21 @@ func WithTransaction(db *gorm.DB, options TransactionOptions, fn func(*gorm.DB) 
 		return fmt.Errorf("failed to begin transaction: %w", tx.Error)
 	}
 
-	if err := tx.Exec("SET LOCAL lock_timeout = '5s'").Error; err != nil {
-		tx.Rollback()
-		return fmt.Errorf("failed to set lock timeout: %w", err)
-	}
+	// Get the database dialect name
+	dialectName := tx.Dialector.Name()
 
-	if options.IsolationLevel != "" {
-		if err := tx.Exec(fmt.Sprintf("SET LOCAL transaction_isolation = '%s'", options.IsolationLevel)).Error; err != nil {
+	// Only apply PostgreSQL-specific settings for PostgreSQL
+	if dialectName == "postgres" {
+		if err := tx.Exec("SET LOCAL lock_timeout = '5s'").Error; err != nil {
 			tx.Rollback()
-			return fmt.Errorf("failed to set isolation level: %w", err)
+			return fmt.Errorf("failed to set lock timeout: %w", err)
+		}
+
+		if options.IsolationLevel != "" {
+			if err := tx.Exec(fmt.Sprintf("SET LOCAL transaction_isolation = '%s'", options.IsolationLevel)).Error; err != nil {
+				tx.Rollback()
+				return fmt.Errorf("failed to set isolation level: %w", err)
+			}
 		}
 	}
 

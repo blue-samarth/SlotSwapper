@@ -22,6 +22,7 @@ type User struct {
 
 func (u *User) BeforeSave(tx *gorm.DB) (err error) {
 	u.Email = strings.ToLower(strings.TrimSpace(u.Email))
+	u.Username = strings.ToLower(strings.TrimSpace(u.Username))
 	return nil
 }
 

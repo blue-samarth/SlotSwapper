@@ -15,6 +15,7 @@ func InitiateSwap(requesterEventID, receiverEventID uint, userID uint) (*models.
 	db := config.GetDB()
 
 	var swapRequest models.SwapRequest
+	var swapRequestID uint
 	err := utils.WithDefaultTransaction(db, func(tx *gorm.DB) error {
 		var event1, event2 models.Event
 		var eventID1, eventID2 uint
@@ -79,6 +80,7 @@ func InitiateSwap(requesterEventID, receiverEventID uint, userID uint) (*models.
 			return err
 		}
 
+		swapRequestID = swapRequest.ID
 		return nil
 	})
 
@@ -87,8 +89,8 @@ func InitiateSwap(requesterEventID, receiverEventID uint, userID uint) (*models.
 	}
 	if err := db.Preload("RequesterEvent").Preload("ReceiverEvent").
 		Preload("Requester").Preload("Receiver").
-		First(&swapRequest, swapRequest.ID); err != nil {
-		return nil, err.Error
+		First(&swapRequest, swapRequestID).Error; err != nil {
+		return nil, err
 	}
 
 	return &swapRequest, nil
@@ -188,9 +190,10 @@ func RejectSwap(swapRequestID, receiverID uint) error {
 			return errors.New("swap request is not pending")
 		}
 
+		// Use UpdateColumn to bypass BeforeSave validation when only updating status
 		if err := tx.Model(&models.Event{}).
 			Where("id IN (?, ?) AND is_deleted = false", swapRequest.RequesterEventID, swapRequest.ReceiverEventID).
-			Update("status", models.StatusSwappable).Error; err != nil {
+			UpdateColumn("status", models.StatusSwappable).Error; err != nil {
 			return err
 		}
 
@@ -218,9 +221,10 @@ func CancelSwap(swapRequestID, requesterID uint) error {
 			return errors.New("swap request is not pending")
 		}
 
+		// Use UpdateColumn to bypass BeforeSave validation when only updating status
 		if err := tx.Model(&models.Event{}).
 			Where("id IN (?, ?) AND is_deleted = false", swapRequest.RequesterEventID, swapRequest.ReceiverEventID).
-			Update("status", models.StatusSwappable).Error; err != nil {
+			UpdateColumn("status", models.StatusSwappable).Error; err != nil {
 			return err
 		}
 
