@@ -8,6 +8,7 @@ import (
 )
 
 type EventStatus string
+
 const (
 	StatusBusy        EventStatus = "BUSY"
 	StatusSwappable   EventStatus = "SWAPPABLE"
@@ -38,7 +39,7 @@ func (e *Event) BeforeSave(tx *gorm.DB) (err error) {
 	return nil
 }
 
-func (e *Event) IsSwappable() bool {return e.Status == StatusSwappable}
+func (e *Event) IsSwappable() bool { return e.Status == StatusSwappable }
 
 func (e *Event) CanChangeStatus(newStatus EventStatus) error {
 	if newStatus == StatusSwapPending {

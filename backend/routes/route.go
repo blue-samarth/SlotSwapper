@@ -2,8 +2,8 @@ package routes
 
 import (
 	"os"
-	"time"
 	"strings"
+	"time"
 
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
@@ -26,13 +26,13 @@ func SetupRoutes() *gin.Engine {
 
 	router.Use(cors.New(corsConfig))
 
-    router.GET("/health", func(c *gin.Context) {
-        c.JSON(200, gin.H{
-            "status":  "healthy",
-            "service": "SlotSwapper API",
-        })
-    })
-	
+	router.GET("/health", func(c *gin.Context) {
+		c.JSON(200, gin.H{
+			"status":  "healthy",
+			"service": "SlotSwapper API",
+		})
+	})
+
 	auth := router.Group("/api/auth")
 	{
 		auth.POST("/signup", controllers.Signup)

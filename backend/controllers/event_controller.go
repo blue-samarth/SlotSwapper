@@ -9,8 +9,8 @@ import (
 	"gorm.io/gorm"
 
 	"SlotSwapper/config"
-	"SlotSwapper/models"
 	"SlotSwapper/dto"
+	"SlotSwapper/models"
 )
 
 func GetEvents(c *gin.Context) {
@@ -145,10 +145,10 @@ func DeleteEvent(c *gin.Context) {
 		}
 	}
 
-    if event.Status == models.StatusSwapPending {
-        c.JSON(http.StatusBadRequest, gin.H{"error": "Cannot delete event with pending swap"})
-        return
-    }
+	if event.Status == models.StatusSwapPending {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Cannot delete event with pending swap"})
+		return
+	}
 	event.IsDeleted = true
 	event.UpdatedAt = time.Now()
 
