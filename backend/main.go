@@ -24,6 +24,9 @@ func main() {
 	if err := db.AutoMigrate(&models.Event{}); err != nil {
 		log.Fatal().Err(err).Msg("Failed to migrate database")
 	}
+	if err := db.AutoMigrate(&models.SwapRequest{}); err != nil {
+		log.Fatal().Err(err).Msg("Failed to migrate database")
+	}
 	log.Info().Msg("Database migrated successfully")
 
 	route := routes.SetupRoutes()
