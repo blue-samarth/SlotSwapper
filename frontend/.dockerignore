@@ -1,0 +1,107 @@
+# ===================================
+# Frontend .dockerignore
+# Optimized for Vue.js multistage Docker builds
+# ===================================
+
+# Git
+.git/
+.gitignore
+.gitattributes
+
+# Documentation
+*.md
+README.md
+docs/
+LICENSE
+
+# IDE and Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+.eslintcache
+
+# Dependencies (will be installed via package.json)
+node_modules/
+.pnpm-store/
+.yarn/cache
+.yarn/unplugged
+.yarn/build-state.yml
+.yarn/install-state.gz
+.npm/
+.cache/
+
+# Build output (will be rebuilt in container)
+dist/
+dist-ssr/
+build/
+out/
+*.local
+
+# Test files
+**/*.test.ts
+**/*.test.js
+**/*.spec.ts
+**/*.spec.js
+tests/
+test/
+coverage/
+.nyc_output/
+e2e/
+cypress/
+
+# Environment files (should be mounted or passed as build args)
+.env
+.env.*
+!.env.example
+
+# Logs
+*.log
+logs/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Temporary files
+*.tmp
+*.bak
+tmp/
+temp/
+
+# CI/CD
+.github/
+.gitlab-ci.yml
+Jenkinsfile
+.travis.yml
+
+# Docker files (not needed in image)
+Dockerfile*
+docker-compose*.yml
+.dockerignore
+
+# OS files
+Thumbs.db
+.DS_Store
+
+# Optional: Development configs (if not needed in production)
+.editorconfig
+.prettierrc
+.prettierignore
+.eslintrc.*
+.stylelintrc.*
+vite.config.ts.timestamp-*
+
+# Keep these files - they ARE needed:
+# package.json
+# package-lock.json / yarn.lock / pnpm-lock.yaml
+# tsconfig.json
+# vite.config.ts
+# postcss.config.js
+# tailwind.config.js
+# index.html
+# src/
+# public/
