@@ -27,21 +27,24 @@ withDefaults(defineProps<Props>(), {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 1rem;
+  gap: var(--space-md);
 }
 
 .spinner-container.spinner--fullscreen {
   position: fixed;
   inset: 0;
-  background: rgba(255, 255, 255, 0.9);
+  background: var(--color-overlay-light);
+  backdrop-filter: blur(8px);
   z-index: 9998;
 }
 
 .spinner {
-  border: 3px solid rgba(59, 130, 246, 0.2);
-  border-radius: 50%;
-  border-top-color: #3b82f6;
-  animation: spin 0.8s linear infinite;
+  border: 3px solid var(--color-gray-200);
+  border-radius: var(--radius-full);
+  border-top-color: var(--color-primary);
+  border-right-color: var(--color-secondary);
+  animation: spin 0.8s var(--ease-smooth) infinite;
+  box-shadow: var(--shadow-primary);
 }
 
 .spinner--sm {
@@ -64,14 +67,24 @@ withDefaults(defineProps<Props>(), {
 
 .spinner-message {
   margin: 0;
-  font-size: 0.875rem;
-  color: #6b7280;
-  font-weight: 500;
+  font-size: var(--text-sm);
+  color: var(--color-text-secondary);
+  font-weight: var(--weight-medium);
+  animation: pulse 2s ease-in-out infinite;
 }
 
 @keyframes spin {
   to {
     transform: rotate(360deg);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
   }
 }
 </style>

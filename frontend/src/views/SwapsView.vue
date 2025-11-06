@@ -7,6 +7,7 @@ import { useEventsStore } from '../stores/event_store';
 import BrowseSlotsTab from './swapView/BrowseSlotsTabView.vue';
 import SentSwapsTab from './swapView/SentSwapsTabView.vue';
 import ReceivedSwapsTab from './swapView/ReceivedSwapsTabView.vue';
+import AppHeader from '../components/common/AppHeader.vue';
 
 const router = useRouter();
 const authStore = useAuthStore();
@@ -31,80 +32,43 @@ onMounted(async () => {
 </script>
 
 <template>
-  <div class="min-h-screen bg-gray-50">
+  <div class="swaps-view">
     <!-- Header -->
-    <header class="bg-white shadow-sm sticky top-0 z-10">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
-        <h1 class="text-2xl font-bold text-gray-900">SlotSwapper</h1>
-        <div class="flex items-center gap-4">
-          <router-link 
-            to="/dashboard" 
-            class="text-sm text-gray-600 hover:text-gray-900 font-medium"
-          >
-            Dashboard
-          </router-link>
-          <router-link 
-            to="/events" 
-            class="text-sm text-gray-600 hover:text-gray-900 font-medium"
-          >
-            Events
-          </router-link>
-          <span class="text-sm text-gray-600">{{ authStore.user?.username }}</span>
-          <button 
-            @click="handleLogout" 
-            class="px-4 py-2 text-sm font-medium text-white bg-red-600 rounded-lg hover:bg-red-700 transition-colors"
-          >
-            Logout
-          </button>
-        </div>
-      </div>
-    </header>
+    <AppHeader :username="authStore.user?.username" @logout="handleLogout" />
 
     <!-- Main Content -->
-    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-      <h2 class="text-3xl font-bold text-gray-900 mb-6">Swap Management</h2>
+    <main class="swaps-view__content">
+      <h2 class="swaps-view__title">Swap Management</h2>
 
       <!-- Tabs -->
-      <div class="border-b border-gray-200 mb-6">
-        <nav class="flex gap-8">
+      <div class="swaps-view__tabs">
+        <nav class="swaps-view__tabs-nav">
           <button
             @click="activeTab = 'browse'"
-            :class="{
-              'py-4 px-1 border-b-2 font-medium text-sm transition-colors': true,
-              'border-blue-500 text-blue-600': activeTab === 'browse',
-              'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300': activeTab !== 'browse',
-            }"
+            :class="['swaps-view__tab', { 'swaps-view__tab--active': activeTab === 'browse' }]"
           >
             🔍 Browse Slots
           </button>
           <button
             @click="activeTab = 'sent'"
-            :class="{
-              'py-4 px-1 border-b-2 font-medium text-sm transition-colors relative': true,
-              'border-blue-500 text-blue-600': activeTab === 'sent',
-              'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300': activeTab !== 'sent',
-            }"
+            :class="['swaps-view__tab', { 'swaps-view__tab--active': activeTab === 'sent' }]"
           >
             📤 Sent 
             <span 
               v-if="swapsStore.sentRequests.length > 0"
-              class="ml-1 px-2 py-0.5 text-xs rounded-full bg-blue-100 text-blue-800"
+              class="swaps-view__badge swaps-view__badge--secondary"
             >
               {{ swapsStore.sentRequests.length }}
             </span>
           </button>
           <button
             @click="activeTab = 'received'"
-            :class="{
-              'py-4 px-1 border-b-2 font-medium text-sm transition-colors relative': true,
-              'border-blue-500 text-blue-600': activeTab === 'received',
-              'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300': activeTab !== 'received',
-            }"
+            :class="['swaps-view__tab', { 'swaps-view__tab--active': activeTab === 'received' }]"
           >
             📥 Received 
             <span 
               v-if="swapsStore.receivedRequests.length > 0"
-              class="ml-1 px-2 py-0.5 text-xs rounded-full bg-green-100 text-green-800"
+              class="swaps-view__badge swaps-view__badge--success"
             >
               {{ swapsStore.receivedRequests.length }}
             </span>
@@ -119,3 +83,86 @@ onMounted(async () => {
     </main>
   </div>
 </template>
+
+<style scoped>
+.swaps-view {
+  min-height: 100vh;
+  background: var(--gradient-bg-subtle);
+}
+
+.swaps-view__content {
+  max-width: 80rem;
+  margin: 0 auto;
+  padding: var(--space-xl) var(--space-lg);
+}
+
+.swaps-view__title {
+  font-size: var(--text-3xl);
+  font-weight: var(--weight-bold);
+  background: var(--gradient-primary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: var(--space-xl);
+}
+
+.swaps-view__tabs {
+  border-bottom: 2px solid var(--color-gray-200);
+  margin-bottom: var(--space-xl);
+}
+
+.swaps-view__tabs-nav {
+  display: flex;
+  gap: var(--space-xl);
+}
+
+.swaps-view__tab {
+  padding: var(--space-md) var(--space-sm);
+  border-bottom: 3px solid transparent;
+  font-weight: var(--weight-medium);
+  font-size: var(--text-base);
+  transition: var(--transition-all);
+  color: var(--color-text-secondary);
+  background: none;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  cursor: pointer;
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+}
+
+.swaps-view__tab:hover {
+  color: var(--color-primary);
+  border-bottom-color: var(--color-gray-300);
+  transform: translateY(-2px);
+}
+
+.swaps-view__tab--active {
+  color: var(--color-primary);
+  border-bottom-color: var(--color-primary);
+  font-weight: var(--weight-semibold);
+}
+
+.swaps-view__badge {
+  padding: var(--space-xs) var(--space-sm);
+  border-radius: var(--radius-full);
+  font-size: var(--text-xs);
+  font-weight: var(--weight-semibold);
+  margin-left: var(--space-xs);
+}
+
+.swaps-view__badge--secondary {
+  background: linear-gradient(135deg, rgba(78, 205, 196, 0.2), rgba(78, 205, 196, 0.1));
+  color: var(--color-secondary);
+  border: 1px solid var(--color-secondary);
+}
+
+.swaps-view__badge--success {
+  background: linear-gradient(135deg, rgba(149, 225, 211, 0.2), rgba(149, 225, 211, 0.1));
+  color: var(--color-success);
+  border: 1px solid var(--color-success);
+}
+</style>

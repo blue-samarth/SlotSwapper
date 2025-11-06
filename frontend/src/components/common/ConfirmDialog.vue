@@ -95,50 +95,66 @@ const handleCancel = () => {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 1rem;
+  gap: var(--space-md);
   text-align: center;
-  padding: 1rem 0;
+  padding: var(--space-md) 0;
 }
 
 .confirm-icon {
-  width: 3rem;
-  height: 3rem;
-  border-radius: 50%;
+  width: 3.5rem;
+  height: 3.5rem;
+  border-radius: var(--radius-full);
   display: flex;
   align-items: center;
   justify-content: center;
+  box-shadow: var(--shadow-md);
+  animation: pulse 2s infinite;
 }
 
 .confirm-icon--danger {
-  background: #fee2e2;
-  color: #dc2626;
+  background: linear-gradient(135deg, rgba(255, 107, 107, 0.2), rgba(255, 107, 107, 0.1));
+  color: var(--color-error);
+  border: 2px solid var(--color-error);
 }
 
 .confirm-icon--warning {
-  background: #fef3c7;
-  color: #d97706;
+  background: linear-gradient(135deg, rgba(243, 129, 129, 0.2), rgba(243, 129, 129, 0.1));
+  color: var(--color-warning);
+  border: 2px solid var(--color-warning);
 }
 
 .confirm-icon--info {
-  background: #dbeafe;
-  color: #2563eb;
+  background: linear-gradient(135deg, rgba(78, 205, 196, 0.2), rgba(78, 205, 196, 0.1));
+  color: var(--color-secondary);
+  border: 2px solid var(--color-secondary);
 }
 
 .confirm-icon svg {
-  width: 1.75rem;
-  height: 1.75rem;
+  width: 2rem;
+  height: 2rem;
 }
 
 .confirm-message {
   margin: 0;
-  font-size: 1rem;
-  font-weight: 500;
-  color: #111827;
+  font-size: var(--text-lg);
+  font-weight: var(--weight-semibold);
+  color: var(--color-text-primary);
+  line-height: var(--leading-normal);
 }
 
 .confirm-submessage {
   margin: 0;
-  font-size: 0.875rem;
-  color: #6b7280;
+  font-size: var(--text-sm);
+  color: var(--color-text-secondary);
+  line-height: var(--leading-relaxed);
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
 }
 </style>

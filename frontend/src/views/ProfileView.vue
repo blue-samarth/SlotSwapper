@@ -6,6 +6,7 @@ import { useToast } from '../composables/useToast';
 import { formatDate } from '../utils/date';
 import { validateUsername } from '../utils/validation';
 import AppButton from '../components/common/AppButton.vue';
+import AppHeader from '../components/common/AppHeader.vue';
 import * as usersApi from '../api/users_api';
 
 const router = useRouter();
@@ -87,25 +88,14 @@ const handleSaveProfile = async () => {
 </script>
 
 <template>
-  <div class="min-h-screen bg-gray-50">
+  <div class="profile-view">
     <!-- Header -->
-    <header class="bg-white shadow-sm">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
-        <h1 class="text-2xl font-bold text-gray-900">SlotSwapper</h1>
-        <div class="flex items-center gap-4">
-          <router-link to="/dashboard" class="text-sm text-gray-600 hover:text-gray-900">Dashboard</router-link>
-          <span class="text-sm text-gray-600">{{ authStore.user?.username }}</span>
-          <button @click="handleLogout" class="px-4 py-2 text-sm font-medium text-white bg-red-600 rounded-lg hover:bg-red-700">
-            Logout
-          </button>
-        </div>
-      </div>
-    </header>
+    <AppHeader :username="authStore.user?.username" @logout="handleLogout" />
 
     <!-- Main Content -->
-    <main class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-      <div class="flex justify-between items-center mb-6">
-        <h2 class="text-3xl font-bold text-gray-900">My Profile</h2>
+    <main class="profile-view__content">
+      <div class="profile-view__header">
+        <h2 class="profile-view__title">My Profile</h2>
         <AppButton
           v-if="!isEditMode"
           variant="primary"
@@ -115,48 +105,48 @@ const handleSaveProfile = async () => {
         </AppButton>
       </div>
 
-      <div class="bg-white rounded-lg shadow p-6 space-y-6">
+      <div class="profile-view__card">
         <!-- Username Field -->
-        <div>
-          <label class="block text-sm font-medium text-gray-700 mb-2">Username</label>
-          <div v-if="!isEditMode" class="text-lg font-semibold">
+        <div class="profile-view__field">
+          <label class="profile-view__label">Username</label>
+          <div v-if="!isEditMode" class="profile-view__value">
             {{ authStore.user?.username }}
           </div>
           <div v-else>
             <input
               v-model="editForm.username"
               type="text"
-              class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-              :class="{ 'border-red-500': errors.username }"
+              class="profile-view__input"
+              :class="{ 'profile-view__input--error': errors.username }"
               placeholder="Enter username"
             />
-            <p v-if="errors.username" class="mt-1 text-sm text-red-600">
+            <p v-if="errors.username" class="profile-view__error">
               {{ errors.username }}
             </p>
           </div>
         </div>
 
         <!-- Email Field (Read-only) -->
-        <div>
-          <label class="block text-sm font-medium text-gray-700 mb-2">Email</label>
-          <div class="text-lg">{{ authStore.user?.email }}</div>
-          <p class="mt-1 text-xs text-gray-500">Email cannot be changed</p>
+        <div class="profile-view__field">
+          <label class="profile-view__label">Email</label>
+          <div class="profile-view__value">{{ authStore.user?.email }}</div>
+          <p class="profile-view__hint">Email cannot be changed</p>
         </div>
 
         <!-- User ID (Read-only) -->
-        <div>
-          <label class="block text-sm font-medium text-gray-700 mb-2">User ID</label>
-          <div class="text-sm text-gray-600 font-mono">{{ authStore.user?.id }}</div>
+        <div class="profile-view__field">
+          <label class="profile-view__label">User ID</label>
+          <div class="profile-view__value profile-view__value--mono">{{ authStore.user?.id }}</div>
         </div>
 
         <!-- Member Since (Read-only) -->
-        <div>
-          <label class="block text-sm font-medium text-gray-700 mb-2">Member Since</label>
-          <div>{{ formatDate(authStore.user?.created_at || '') }}</div>
+        <div class="profile-view__field">
+          <label class="profile-view__label">Member Since</label>
+          <div class="profile-view__value">{{ formatDate(authStore.user?.created_at || '') }}</div>
         </div>
 
         <!-- Action Buttons (Edit Mode) -->
-        <div v-if="isEditMode" class="flex gap-3 pt-4 border-t">
+        <div v-if="isEditMode" class="profile-view__actions">
           <AppButton
             variant="secondary"
             :disabled="isSubmitting"
@@ -179,3 +169,105 @@ const handleSaveProfile = async () => {
     </main>
   </div>
 </template>
+
+<style scoped>
+.profile-view {
+  min-height: 100vh;
+  background: var(--gradient-bg-subtle);
+}
+
+.profile-view__content {
+  max-width: 48rem;
+  margin: 0 auto;
+  padding: var(--space-xl) var(--space-lg);
+}
+
+.profile-view__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--space-xl);
+}
+
+.profile-view__title {
+  font-size: var(--text-3xl);
+  font-weight: var(--weight-bold);
+  background: var(--gradient-primary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.profile-view__card {
+  background: var(--color-bg-card);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-lg);
+  padding: var(--space-xl);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xl);
+}
+
+.profile-view__field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.profile-view__label {
+  font-size: var(--text-sm);
+  font-weight: var(--weight-semibold);
+  color: var(--color-text-primary);
+}
+
+.profile-view__value {
+  font-size: var(--text-lg);
+  font-weight: var(--weight-semibold);
+  color: var(--color-text-primary);
+}
+
+.profile-view__value--mono {
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  color: var(--color-text-secondary);
+}
+
+.profile-view__input {
+  width: 100%;
+  padding: var(--space-sm) var(--space-md);
+  border: 2px solid var(--color-gray-300);
+  border-radius: var(--radius-md);
+  font-size: var(--text-base);
+  transition: var(--transition-all);
+}
+
+.profile-view__input:focus {
+  outline: none;
+  border-color: var(--color-secondary);
+  box-shadow: 0 0 0 3px rgba(78, 205, 196, 0.15);
+}
+
+.profile-view__input--error {
+  border-color: var(--color-error);
+}
+
+.profile-view__error {
+  margin-top: calc(var(--space-xs) * -1);
+  font-size: var(--text-sm);
+  color: var(--color-error);
+}
+
+.profile-view__hint {
+  margin-top: calc(var(--space-xs) * -1);
+  font-size: var(--text-xs);
+  color: var(--color-text-secondary);
+  font-style: italic;
+}
+
+.profile-view__actions {
+  display: flex;
+  gap: var(--space-sm);
+  padding-top: var(--space-md);
+  border-top: 1px solid var(--color-gray-200);
+}
+</style>

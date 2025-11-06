@@ -66,86 +66,94 @@ const emit = defineEmits<{
 
 <style scoped>
 .event-card {
-  background: white;
-  border-radius: 0.5rem;
-  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
-  padding: 1.5rem;
+  background: var(--color-bg-card);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  padding: var(--space-lg);
   display: flex;
   flex-direction: column;
-  gap: 1rem;
-  transition: transform 0.2s, box-shadow 0.2s;
+  gap: var(--space-md);
+  transition: var(--transition-all);
+  border: 1px solid var(--color-gray-200);
 }
 
 .event-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+  border-color: var(--color-secondary);
 }
 
 .event-card__header {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  gap: 0.75rem;
-  margin-bottom: 0.5rem;
+  gap: var(--space-md);
+  margin-bottom: var(--space-sm);
 }
 
 .event-card__title {
-  font-size: 1.125rem;
-  font-weight: 600;
-  color: #111827;
+  font-size: var(--text-lg);
+  font-weight: var(--weight-semibold);
+  color: var(--color-text-primary);
   margin: 0;
   flex: 1;
-  line-height: 1.4;
+  line-height: var(--leading-tight);
 }
 
 .event-card__status {
-  padding: 0.375rem 0.75rem;
-  border-radius: 9999px;
-  font-size: 0.75rem;
-  font-weight: 500;
+  padding: var(--space-xs) var(--space-md);
+  border-radius: var(--radius-full);
+  font-size: var(--text-xs);
+  font-weight: var(--weight-semibold);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
   white-space: nowrap;
   flex-shrink: 0;
+  box-shadow: var(--shadow-sm);
 }
 
 .event-card__status--busy {
-  background: #fee2e2;
-  color: #dc2626;
+  background: var(--status-busy-bg);
+  color: var(--status-busy-text);
+  border: 2px solid var(--status-busy-border);
 }
 
 .event-card__status--swappable {
-  background: #d1fae5;
-  color: #059669;
+  background: var(--status-swappable-bg);
+  color: var(--status-swappable-text);
+  border: 2px solid var(--status-swappable-border);
 }
 
 .event-card__status--swap_pending {
-  background: #fef3c7;
-  color: #d97706;
+  background: var(--status-pending-bg);
+  color: var(--status-pending-text);
+  border: 2px solid var(--status-pending-border);
 }
 
 .event-card__details {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: var(--space-sm);
 }
 
 .event-card__detail {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
-  font-size: 0.875rem;
-  color: #6b7280;
+  gap: var(--space-sm);
+  font-size: var(--text-sm);
+  color: var(--color-text-secondary);
 }
 
 .event-card__icon {
   width: 1.125rem;
   height: 1.125rem;
   flex-shrink: 0;
-  color: #9ca3af;
+  color: var(--color-secondary);
 }
 
 .event-card__actions {
   display: flex;
-  gap: 0.5rem;
-  margin-top: 0.5rem;
+  gap: var(--space-sm);
+  margin-top: var(--space-sm);
 }
 </style>

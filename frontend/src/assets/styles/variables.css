@@ -1,0 +1,351 @@
+/* ============================================
+   CAMPUS VIBRANCE - COLOR SCHEME & DESIGN SYSTEM
+   SlotSwapper Application
+   ============================================ */
+
+/* ============================================
+   1. COLOR PALETTE
+   ============================================ */
+
+:root {
+  /* Primary Colors */
+  --color-primary: #FF6B6B;           /* Coral Red - passionate, energetic */
+  --color-primary-light: #FF8E8E;     /* Lighter coral for hovers */
+  --color-primary-dark: #E85555;      /* Darker coral for active states */
+  --color-primary-bg: #FFE8E8;        /* Very light coral for backgrounds */
+  
+  /* Secondary Colors */
+  --color-secondary: #4ECDC4;         /* Turquoise - fresh, creative */
+  --color-secondary-light: #6FD9D1;   /* Lighter turquoise */
+  --color-secondary-dark: #3DB8AF;    /* Darker turquoise */
+  --color-secondary-bg: #E0F7F6;      /* Very light turquoise */
+  
+  /* Accent Colors */
+  --color-accent: #FFE66D;            /* Bright Yellow - optimistic */
+  --color-accent-light: #FFED8F;      /* Lighter yellow */
+  --color-accent-dark: #F5D94A;       /* Darker yellow */
+  --color-accent-bg: #FFF9E0;         /* Very light yellow */
+  
+  /* Success Colors */
+  --color-success: #95E1D3;           /* Mint - calm approval */
+  --color-success-light: #B0EBDF;     /* Lighter mint */
+  --color-success-dark: #7DD8C8;      /* Darker mint */
+  --color-success-bg: #E8F9F5;        /* Very light mint */
+  
+  /* Warning Colors */
+  --color-warning: #F38181;           /* Salmon - friendly warning */
+  --color-warning-light: #F69E9E;     /* Lighter salmon */
+  --color-warning-dark: #EF6969;      /* Darker salmon */
+  --color-warning-bg: #FEF0F0;        /* Very light salmon */
+  
+  /* Error/Danger Colors */
+  --color-error: #FF6B6B;             /* Using primary coral for consistency */
+  --color-error-light: #FF8E8E;
+  --color-error-dark: #E85555;
+  --color-error-bg: #FFE8E8;
+  
+  /* Neutral Colors - Deep Navy Base */
+  --color-dark: #2D3561;              /* Deep Navy - sophisticated grounding */
+  --color-dark-light: #3D4570;        /* Lighter navy */
+  --color-dark-lighter: #4D5580;      /* Even lighter navy */
+  
+  /* Gray Scale */
+  --color-gray-50: #F8F9FB;           /* Lightest gray with blue tint */
+  --color-gray-100: #EEF1F6;
+  --color-gray-200: #DFE3EB;
+  --color-gray-300: #C4CAD6;
+  --color-gray-400: #A0A8B8;
+  --color-gray-500: #6B7589;
+  --color-gray-600: #4A5568;
+  --color-gray-700: #2D3561;          /* Matches dark */
+  --color-gray-800: #1A1F3A;
+  --color-gray-900: #0F1419;
+  
+  /* Background Colors */
+  --color-bg-main: #F8F9FB;           /* Main app background */
+  --color-bg-card: #FFFFFF;           /* Card backgrounds */
+  --color-bg-hover: #F0F2F7;          /* Hover states */
+  
+  /* Text Colors */
+  --color-text-primary: #2D3561;      /* Main text */
+  --color-text-secondary: #6B7589;    /* Secondary text */
+  --color-text-tertiary: #A0A8B8;     /* Tertiary text */
+  --color-text-inverse: #FFFFFF;      /* White text on colored backgrounds */
+}
+
+/* ============================================
+   2. STATUS-SPECIFIC COLORS
+   ============================================ */
+
+:root {
+  /* Event Status: BUSY */
+  --status-busy-bg: var(--color-warning-bg);
+  --status-busy-text: var(--color-warning-dark);
+  --status-busy-border: var(--color-warning);
+  
+  /* Event Status: SWAPPABLE */
+  --status-swappable-bg: var(--color-success-bg);
+  --status-swappable-text: var(--color-success-dark);
+  --status-swappable-border: var(--color-success);
+  
+  /* Event Status: SWAP_PENDING */
+  --status-pending-bg: var(--color-accent-bg);
+  --status-pending-text: var(--color-accent-dark);
+  --status-pending-border: var(--color-accent);
+  
+  /* Swap Status Colors */
+  --swap-pending: var(--color-accent);
+  --swap-accepted: var(--color-success);
+  --swap-rejected: var(--color-warning);
+  --swap-cancelled: var(--color-gray-400);
+}
+
+/* ============================================
+   3. GRADIENTS
+   ============================================ */
+
+:root {
+  /* Hero Gradients */
+  --gradient-hero: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%);
+  --gradient-hero-alt: linear-gradient(135deg, var(--color-secondary) 0%, var(--color-accent) 100%);
+  
+  /* Card Hover Gradients */
+  --gradient-card-hover: linear-gradient(135deg, var(--color-primary-bg) 0%, var(--color-secondary-bg) 100%);
+  
+  /* Button Gradients */
+  --gradient-primary-btn: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
+  --gradient-secondary-btn: linear-gradient(135deg, var(--color-secondary) 0%, var(--color-secondary-dark) 100%);
+  
+  /* Background Gradients (subtle) */
+  --gradient-bg-subtle: linear-gradient(180deg, var(--color-gray-50) 0%, var(--color-bg-main) 100%);
+  
+  /* Overlay Gradients */
+  --gradient-overlay-dark: linear-gradient(180deg, rgba(45, 53, 97, 0) 0%, rgba(45, 53, 97, 0.8) 100%);
+}
+
+/* ============================================
+   4. SHADOWS & ELEVATION
+   ============================================ */
+
+:root {
+  /* Soft Shadows with Color Tints */
+  --shadow-sm: 0 1px 2px 0 rgba(78, 205, 196, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(78, 205, 196, 0.1), 0 2px 4px -1px rgba(78, 205, 196, 0.06);
+  --shadow-lg: 0 10px 15px -3px rgba(78, 205, 196, 0.15), 0 4px 6px -2px rgba(78, 205, 196, 0.05);
+  --shadow-xl: 0 20px 25px -5px rgba(78, 205, 196, 0.2), 0 10px 10px -5px rgba(78, 205, 196, 0.1);
+  
+  /* Colored Shadows for Hover States */
+  --shadow-primary: 0 8px 16px -4px rgba(255, 107, 107, 0.3);
+  --shadow-secondary: 0 8px 16px -4px rgba(78, 205, 196, 0.3);
+  --shadow-accent: 0 8px 16px -4px rgba(255, 230, 109, 0.4);
+  
+  /* Inner Shadows */
+  --shadow-inner: inset 0 2px 4px 0 rgba(45, 53, 97, 0.06);
+}
+
+/* ============================================
+   5. BORDER RADIUS
+   ============================================ */
+
+:root {
+  --radius-sm: 0.375rem;   /* 6px - small elements */
+  --radius-md: 0.5rem;     /* 8px - cards, buttons */
+  --radius-lg: 0.75rem;    /* 12px - large cards */
+  --radius-xl: 1rem;       /* 16px - modals */
+  --radius-full: 9999px;   /* Pills, avatars */
+  
+  /* Playful asymmetric radius for cards */
+  --radius-card-fun: 0.5rem 1.5rem 0.5rem 1.5rem;
+}
+
+/* ============================================
+   6. TRANSITIONS & ANIMATIONS
+   ============================================ */
+
+:root {
+  /* Timing Functions */
+  --ease-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  --ease-elastic: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  
+  /* Durations */
+  --duration-fast: 150ms;
+  --duration-normal: 250ms;
+  --duration-slow: 350ms;
+  
+  /* Common Transitions */
+  --transition-all: all var(--duration-normal) var(--ease-smooth);
+  --transition-transform: transform var(--duration-normal) var(--ease-bounce);
+  --transition-color: color var(--duration-fast) var(--ease-smooth);
+}
+
+/* ============================================
+   7. SPACING SCALE
+   ============================================ */
+
+:root {
+  --space-xs: 0.25rem;   /* 4px */
+  --space-sm: 0.5rem;    /* 8px */
+  --space-md: 1rem;      /* 16px */
+  --space-lg: 1.5rem;    /* 24px */
+  --space-xl: 2rem;      /* 32px */
+  --space-2xl: 3rem;     /* 48px */
+  --space-3xl: 4rem;     /* 64px */
+}
+
+/* ============================================
+   8. TYPOGRAPHY
+   ============================================ */
+
+:root {
+  /* Font Families */
+  --font-primary: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-display: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+  
+  /* Font Sizes */
+  --text-xs: 0.75rem;      /* 12px */
+  --text-sm: 0.875rem;     /* 14px */
+  --text-base: 1rem;       /* 16px */
+  --text-lg: 1.125rem;     /* 18px */
+  --text-xl: 1.25rem;      /* 20px */
+  --text-2xl: 1.5rem;      /* 24px */
+  --text-3xl: 1.875rem;    /* 30px */
+  --text-4xl: 2.25rem;     /* 36px */
+  
+  /* Font Weights */
+  --weight-normal: 400;
+  --weight-medium: 500;
+  --weight-semibold: 600;
+  --weight-bold: 700;
+  --weight-extrabold: 800;
+  
+  /* Line Heights */
+  --leading-tight: 1.25;
+  --leading-normal: 1.5;
+  --leading-relaxed: 1.75;
+}
+
+/* ============================================
+   9. COMPONENT-SPECIFIC PATTERNS
+   ============================================ */
+
+/* Button Styles */
+.btn-primary {
+  background: var(--gradient-primary-btn);
+  color: var(--color-text-inverse);
+  box-shadow: var(--shadow-primary);
+  transition: var(--transition-all);
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-xl);
+}
+
+.btn-secondary {
+  background: var(--gradient-secondary-btn);
+  color: var(--color-text-inverse);
+  box-shadow: var(--shadow-secondary);
+}
+
+/* Card Styles */
+.card {
+  background: var(--color-bg-card);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  transition: var(--transition-all);
+  border: 1px solid var(--color-gray-200);
+}
+
+.card:hover {
+  box-shadow: var(--shadow-lg);
+  transform: translateY(-4px);
+  border-color: var(--color-secondary);
+}
+
+.card-fun {
+  border-radius: var(--radius-card-fun);
+  background: var(--gradient-card-hover);
+}
+
+/* Status Badge Styles */
+.badge {
+  padding: var(--space-xs) var(--space-md);
+  border-radius: var(--radius-full);
+  font-size: var(--text-xs);
+  font-weight: var(--weight-semibold);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  box-shadow: var(--shadow-sm);
+}
+
+.badge-busy {
+  background: var(--status-busy-bg);
+  color: var(--status-busy-text);
+  border: 2px solid var(--status-busy-border);
+}
+
+.badge-swappable {
+  background: var(--status-swappable-bg);
+  color: var(--status-swappable-text);
+  border: 2px solid var(--status-swappable-border);
+}
+
+.badge-pending {
+  background: var(--status-pending-bg);
+  color: var(--status-pending-text);
+  border: 2px solid var(--status-pending-border);
+}
+
+/* ============================================
+   10. ARTISTIC PATTERNS & DECORATIONS
+   ============================================ */
+
+/* Decorative Elements */
+.pattern-dots {
+  background-image: radial-gradient(var(--color-secondary) 1px, transparent 1px);
+  background-size: 20px 20px;
+  opacity: 0.1;
+}
+
+.pattern-grid {
+  background-image: 
+    linear-gradient(var(--color-gray-200) 1px, transparent 1px),
+    linear-gradient(90deg, var(--color-gray-200) 1px, transparent 1px);
+  background-size: 50px 50px;
+}
+
+/* Glow Effects */
+.glow-primary {
+  box-shadow: 0 0 20px rgba(255, 107, 107, 0.4);
+}
+
+.glow-secondary {
+  box-shadow: 0 0 20px rgba(78, 205, 196, 0.4);
+}
+
+/* Border Accents */
+.border-accent-left {
+  border-left: 4px solid var(--color-primary);
+}
+
+.border-accent-gradient {
+  border-image: linear-gradient(135deg, var(--color-primary), var(--color-secondary)) 1;
+}
+
+/* ============================================
+   11. DARK MODE VARIANT
+   ============================================ */
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-bg-main: #1A1F3A;
+    --color-bg-card: #2D3561;
+    --color-text-primary: #F8F9FB;
+    --color-text-secondary: #C4CAD6;
+    
+    /* Adjust shadows for dark mode */
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.4), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
+  }
+}

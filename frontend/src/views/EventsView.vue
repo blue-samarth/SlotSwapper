@@ -11,6 +11,7 @@ import EventForm from '../components/events/EventForm.vue';
 import EventCard from '../components/events/EventCard.vue';
 import ConfirmDialog from '../components/common/ConfirmDialog.vue';
 import LoadingSpinner from '../components/common/LoadingSpinner.vue';
+import AppHeader from '../components/common/AppHeader.vue';
 
 const router = useRouter();
 const authStore = useAuthStore();
@@ -116,46 +117,35 @@ onMounted(async () => {
 </script>
 
 <template>
-  <div class="min-h-screen bg-gray-50">
+  <div class="events-view">
     <!-- Header -->
-    <header class="bg-white shadow-sm">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
-        <h1 class="text-2xl font-bold text-gray-900">SlotSwapper</h1>
-        <div class="flex items-center gap-4">
-          <router-link to="/dashboard" class="text-sm text-gray-600 hover:text-gray-900">Dashboard</router-link>
-          <span class="text-sm text-gray-600">{{ authStore.user?.username }}</span>
-          <button @click="handleLogout" class="px-4 py-2 text-sm font-medium text-white bg-red-600 rounded-lg hover:bg-red-700">
-            Logout
-          </button>
-        </div>
-      </div>
-    </header>
+    <AppHeader :username="authStore.user?.username" @logout="handleLogout" />
 
     <!-- Main Content -->
-    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <main class="events-view__content">
       <!-- Header with Create Button -->
-      <div class="flex justify-between items-center mb-6">
-        <h2 class="text-3xl font-bold text-gray-900">My Events</h2>
+      <div class="events-view__header">
+        <h2 class="events-view__title">My Events</h2>
         <AppButton variant="primary" @click="openCreateModal">
           + Create Event
         </AppButton>
       </div>
       
       <!-- Loading State -->
-      <div v-if="eventsStore.isLoading" class="text-center py-12">
+      <div v-if="eventsStore.isLoading" class="events-view__loading">
         <LoadingSpinner size="lg" message="Loading events..." />
       </div>
 
       <!-- Empty State -->
-      <div v-else-if="eventsStore.events.length === 0" class="text-center py-12 bg-white rounded-lg shadow">
-        <div class="text-gray-500 mb-4">No events yet. Create your first event!</div>
+      <div v-else-if="eventsStore.events.length === 0" class="events-view__empty">
+        <div class="events-view__empty-text">No events yet. Create your first event!</div>
         <AppButton variant="primary" @click="openCreateModal">
           Create Event
         </AppButton>
       </div>
 
       <!-- Events Grid -->
-      <div v-else class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div v-else class="events-view__grid">
         <EventCard
           v-for="event in eventsStore.events"
           :key="event.id"
@@ -192,3 +182,69 @@ onMounted(async () => {
     />
   </div>
 </template>
+
+<style scoped>
+.events-view {
+  min-height: 100vh;
+  background: var(--gradient-bg-subtle);
+}
+
+.events-view__content {
+  max-width: 80rem;
+  margin: 0 auto;
+  padding: var(--space-xl) var(--space-lg);
+}
+
+.events-view__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--space-xl);
+}
+
+.events-view__title {
+  font-size: var(--text-3xl);
+  font-weight: var(--weight-bold);
+  background: var(--gradient-primary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.events-view__loading {
+  text-align: center;
+  padding: var(--space-3xl) 0;
+}
+
+.events-view__empty {
+  text-align: center;
+  padding: var(--space-3xl) 0;
+  background: var(--color-bg-card);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-lg);
+}
+
+.events-view__empty-text {
+  color: var(--color-text-secondary);
+  margin-bottom: var(--space-md);
+  font-size: var(--text-lg);
+}
+
+.events-view__grid {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  gap: var(--space-lg);
+}
+
+@media (min-width: 768px) {
+  .events-view__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .events-view__grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+</style>

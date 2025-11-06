@@ -73,21 +73,26 @@ const emit = defineEmits<{
 
 <style scoped>
 .app-header {
-  background: white;
-  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+  background: var(--color-bg-card);
+  box-shadow: var(--shadow-md);
   position: sticky;
   top: 0;
   z-index: 40;
+  border-bottom: 2px solid transparent;
+  background-image: linear-gradient(var(--color-bg-card), var(--color-bg-card)), 
+                    var(--gradient-primary);
+  background-origin: border-box;
+  background-clip: padding-box, border-box;
 }
 
 .app-header__container {
   max-width: 80rem;
   margin: 0 auto;
-  padding: 1rem 1.5rem;
+  padding: var(--space-md) var(--space-lg);
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 2rem;
+  gap: var(--space-xl);
 }
 
 .app-header__left {
@@ -98,86 +103,117 @@ const emit = defineEmits<{
 .app-header__logo {
   display: flex;
   align-items: center;
-  gap: 0.75rem;
+  gap: var(--space-sm);
   text-decoration: none;
-  transition: transform 0.2s;
+  transition: var(--transition-all);
 }
 
 .app-header__logo:hover {
-  transform: scale(1.05);
+  transform: scale(1.05) rotate(-2deg);
 }
 
 .app-header__logo-icon {
   width: 2rem;
   height: 2rem;
-  color: #3b82f6;
+  color: var(--color-secondary);
+  filter: drop-shadow(var(--shadow-secondary));
 }
 
 .app-header__title {
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: #111827;
+  font-size: var(--text-2xl);
+  font-weight: var(--weight-bold);
+  background: var(--gradient-primary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 .app-header__nav {
   display: flex;
   align-items: center;
-  gap: 1.5rem;
+  gap: var(--space-md);
   flex: 1;
   justify-content: center;
 }
 
 .app-header__link {
-  font-size: 0.9375rem;
-  font-weight: 500;
-  color: #6b7280;
+  font-size: var(--text-base);
+  font-weight: var(--weight-medium);
+  color: var(--color-text-secondary);
   text-decoration: none;
-  padding: 0.5rem 1rem;
-  border-radius: 0.375rem;
-  transition: all 0.2s;
+  padding: var(--space-sm) var(--space-md);
+  border-radius: var(--radius-lg);
+  transition: var(--transition-all);
+  position: relative;
+}
+
+.app-header__link::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 0;
+  height: 2px;
+  background: var(--gradient-primary);
+  transform: translateX(-50%);
+  transition: var(--transition-all);
 }
 
 .app-header__link:hover {
-  color: #111827;
-  background: #f3f4f6;
+  color: var(--color-primary);
+  background: var(--color-gray-100);
+  transform: translateY(-2px);
+}
+
+.app-header__link:hover::before {
+  width: 80%;
 }
 
 .app-header__link--active {
-  color: #3b82f6;
-  background: #eff6ff;
+  color: var(--color-primary);
+  background: linear-gradient(135deg, rgba(255, 107, 107, 0.1), rgba(78, 205, 196, 0.1));
+  box-shadow: var(--shadow-sm);
+}
+
+.app-header__link--active::before {
+  width: 100%;
 }
 
 .app-header__right {
   display: flex;
   align-items: center;
-  gap: 1rem;
+  gap: var(--space-md);
 }
 
 .app-header__username {
-  font-size: 0.875rem;
-  font-weight: 500;
-  color: #6b7280;
+  font-size: var(--text-sm);
+  font-weight: var(--weight-semibold);
+  color: var(--color-text-primary);
+  padding: var(--space-xs) var(--space-md);
+  background: var(--color-gray-100);
+  border-radius: var(--radius-full);
+  border: 1px solid var(--color-gray-200);
 }
 
 /* Responsive */
 @media (max-width: 768px) {
   .app-header__container {
     flex-wrap: wrap;
-    gap: 1rem;
+    gap: var(--space-md);
   }
 
   .app-header__nav {
     order: 3;
     flex-basis: 100%;
     justify-content: space-around;
-    border-top: 1px solid #e5e7eb;
-    padding-top: 1rem;
-    margin-top: 0.5rem;
+    border-top: 1px solid var(--color-gray-200);
+    padding-top: var(--space-md);
+    margin-top: var(--space-sm);
   }
 
   .app-header__link {
-    padding: 0.375rem 0.75rem;
-    font-size: 0.875rem;
+    padding: var(--space-xs) var(--space-sm);
+    font-size: var(--text-sm);
   }
 }
 </style>

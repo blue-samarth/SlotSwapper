@@ -54,12 +54,12 @@ const handleRemove = (id: string) => {
 <style scoped>
 .toast-container {
   position: fixed;
-  top: 1rem;
-  right: 1rem;
+  top: var(--space-md);
+  right: var(--space-md);
   z-index: 9999;
   display: flex;
   flex-direction: column;
-  gap: 0.75rem;
+  gap: var(--space-sm);
   max-width: 24rem;
   width: 100%;
   pointer-events: none;
@@ -68,39 +68,44 @@ const handleRemove = (id: string) => {
 .toast {
   display: flex;
   align-items: center;
-  gap: 0.75rem;
-  padding: 1rem;
-  background: white;
-  border-radius: 0.5rem;
-  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  gap: var(--space-md);
+  padding: var(--space-md);
+  background: var(--color-bg-card);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
   pointer-events: auto;
   cursor: pointer;
-  transition: transform 0.2s, opacity 0.2s;
+  transition: var(--transition-all);
   border-left: 4px solid;
 }
 
 .toast:hover {
-  transform: translateX(-4px);
+  transform: translateX(-8px) scale(1.02);
+  box-shadow: var(--shadow-xl);
 }
 
 .toast--success {
-  border-left-color: #10b981;
-  background: #f0fdf4;
+  border-left-color: var(--color-success);
+  background: linear-gradient(to right, rgba(149, 225, 211, 0.1), var(--color-bg-card));
+  box-shadow: var(--shadow-success);
 }
 
 .toast--error {
-  border-left-color: #ef4444;
-  background: #fef2f2;
+  border-left-color: var(--color-error);
+  background: linear-gradient(to right, rgba(255, 107, 107, 0.1), var(--color-bg-card));
+  box-shadow: var(--shadow-primary);
 }
 
 .toast--warning {
-  border-left-color: #f59e0b;
-  background: #fffbeb;
+  border-left-color: var(--color-warning);
+  background: linear-gradient(to right, rgba(243, 129, 129, 0.1), var(--color-bg-card));
+  box-shadow: var(--shadow-warning);
 }
 
 .toast--info {
-  border-left-color: #3b82f6;
-  background: #eff6ff;
+  border-left-color: var(--color-secondary);
+  background: linear-gradient(to right, rgba(78, 205, 196, 0.1), var(--color-bg-card));
+  box-shadow: var(--shadow-secondary);
 }
 
 .toast-icon {
@@ -110,19 +115,19 @@ const handleRemove = (id: string) => {
 }
 
 .toast--success .toast-icon {
-  color: #10b981;
+  color: var(--color-success);
 }
 
 .toast--error .toast-icon {
-  color: #ef4444;
+  color: var(--color-error);
 }
 
 .toast--warning .toast-icon {
-  color: #f59e0b;
+  color: var(--color-warning);
 }
 
 .toast--info .toast-icon {
-  color: #3b82f6;
+  color: var(--color-secondary);
 }
 
 .toast-content {
@@ -132,9 +137,9 @@ const handleRemove = (id: string) => {
 
 .toast-message {
   margin: 0;
-  font-size: 0.875rem;
-  font-weight: 500;
-  color: #111827;
+  font-size: var(--text-sm);
+  font-weight: var(--weight-medium);
+  color: var(--color-text-primary);
   word-wrap: break-word;
 }
 
@@ -145,32 +150,35 @@ const handleRemove = (id: string) => {
   padding: 0;
   border: none;
   background: none;
-  color: #6b7280;
+  color: var(--color-text-secondary);
   cursor: pointer;
-  transition: color 0.2s;
+  transition: var(--transition-all);
+  border-radius: var(--radius-sm);
 }
 
 .toast-close:hover {
-  color: #111827;
+  color: var(--color-text-primary);
+  background: var(--color-gray-100);
+  transform: rotate(90deg);
 }
 
 /* Toast animations */
 .toast-enter-active,
 .toast-leave-active {
-  transition: all 0.3s ease;
+  transition: all var(--duration-slow) var(--ease-bounce);
 }
 
 .toast-enter-from {
   opacity: 0;
-  transform: translateX(100%);
+  transform: translateX(100%) scale(0.8);
 }
 
 .toast-leave-to {
   opacity: 0;
-  transform: translateX(100%);
+  transform: translateX(100%) scale(0.8);
 }
 
 .toast-move {
-  transition: transform 0.3s ease;
+  transition: transform var(--duration-normal) var(--ease-smooth);
 }
 </style>

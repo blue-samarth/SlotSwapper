@@ -83,24 +83,26 @@ watch(() => props.modelValue, (isOpen) => {
 .modal-overlay {
   position: fixed;
   inset: 0;
-  background-color: rgba(0, 0, 0, 0.5);
+  background: var(--color-overlay);
+  backdrop-filter: blur(4px);
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 50;
-  padding: 1rem;
+  padding: var(--space-md);
 }
 
 /* Container */
 .modal-container {
-  background-color: white;
-  border-radius: 0.5rem;
-  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  background: var(--color-bg-card);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-2xl);
   max-width: 32rem;
   width: 100%;
   max-height: 90vh;
   display: flex;
   flex-direction: column;
+  border: 1px solid var(--color-gray-200);
 }
 
 /* Header */
@@ -108,14 +110,15 @@ watch(() => props.modelValue, (isOpen) => {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 1.5rem;
-  border-bottom: 1px solid #e5e7eb;
+  padding: var(--space-lg);
+  border-bottom: 1px solid var(--color-gray-200);
+  background: linear-gradient(to bottom, var(--color-bg-card), transparent);
 }
 
 .modal-title {
-  font-size: 1.25rem;
-  font-weight: 600;
-  color: #111827;
+  font-size: var(--text-xl);
+  font-weight: var(--weight-semibold);
+  color: var(--color-text-primary);
   margin: 0;
 }
 
@@ -123,16 +126,19 @@ watch(() => props.modelValue, (isOpen) => {
   background: none;
   border: none;
   cursor: pointer;
-  padding: 0.25rem;
-  color: #6b7280;
-  transition: color 0.2s;
+  padding: var(--space-xs);
+  color: var(--color-text-secondary);
+  transition: var(--transition-all);
   display: flex;
   align-items: center;
   justify-content: center;
+  border-radius: var(--radius-md);
 }
 
 .modal-close:hover {
-  color: #111827;
+  color: var(--color-primary);
+  background: var(--color-gray-100);
+  transform: rotate(90deg);
 }
 
 .modal-close svg {
@@ -142,24 +148,26 @@ watch(() => props.modelValue, (isOpen) => {
 
 /* Body */
 .modal-body {
-  padding: 1.5rem;
+  padding: var(--space-lg);
   overflow-y: auto;
   flex: 1;
+  color: var(--color-text-secondary);
 }
 
 /* Footer */
 .modal-footer {
-  padding: 1.5rem;
-  border-top: 1px solid #e5e7eb;
+  padding: var(--space-lg);
+  border-top: 1px solid var(--color-gray-200);
   display: flex;
-  gap: 0.75rem;
+  gap: var(--space-sm);
   justify-content: flex-end;
+  background: linear-gradient(to top, var(--color-bg-card), transparent);
 }
 
 /* Transitions */
 .modal-enter-active,
 .modal-leave-active {
-  transition: opacity 0.3s ease;
+  transition: opacity var(--duration-slow) var(--ease-smooth);
 }
 
 .modal-enter-from,
@@ -169,11 +177,11 @@ watch(() => props.modelValue, (isOpen) => {
 
 .modal-enter-active .modal-container,
 .modal-leave-active .modal-container {
-  transition: transform 0.3s ease;
+  transition: transform var(--duration-slow) var(--ease-bounce);
 }
 
 .modal-enter-from .modal-container,
 .modal-leave-to .modal-container {
-  transform: scale(0.95);
+  transform: scale(0.9) translateY(-20px);
 }
 </style>

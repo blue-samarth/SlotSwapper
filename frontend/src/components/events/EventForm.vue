@@ -239,61 +239,82 @@ watch(() => props.event, (event) => {
 .event-form {
   display: flex;
   flex-direction: column;
-  gap: 1.25rem;
+  gap: var(--space-lg);
 }
 
 .form-group {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: var(--space-sm);
 }
 
 .form-label {
-  font-size: 0.875rem;
-  font-weight: 500;
-  color: #374151;
+  font-size: var(--text-sm);
+  font-weight: var(--weight-semibold);
+  color: var(--color-text-primary);
+  letter-spacing: 0.02em;
 }
 
 .form-input {
-  padding: 0.625rem 0.875rem;
-  border: 1px solid #d1d5db;
-  border-radius: 0.375rem;
-  font-size: 0.9375rem;
-  transition: border-color 0.2s;
+  padding: var(--space-sm) var(--space-md);
+  border: 2px solid var(--color-gray-300);
+  border-radius: var(--radius-md);
+  font-size: var(--text-base);
+  transition: var(--transition-all);
   font-family: inherit;
   width: 100%;
+  background: var(--color-bg-card);
+  color: var(--color-text-primary);
+}
+
+.form-input:hover {
+  border-color: var(--color-gray-400);
 }
 
 .form-input:focus {
   outline: none;
-  border-color: #3b82f6;
-  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+  border-color: var(--color-secondary);
+  box-shadow: 0 0 0 3px rgba(78, 205, 196, 0.15);
+  transform: translateY(-2px);
 }
 
 .form-input--error {
-  border-color: #ef4444;
+  border-color: var(--color-error);
+  background: rgba(255, 107, 107, 0.05);
 }
 
 .form-input--error:focus {
-  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
+  box-shadow: 0 0 0 3px rgba(255, 107, 107, 0.15);
 }
 
 .form-error {
-  font-size: 0.8125rem;
-  color: #ef4444;
-  margin-top: -0.25rem;
+  font-size: var(--text-xs);
+  color: var(--color-error);
+  font-weight: var(--weight-medium);
+  margin-top: calc(var(--space-xs) * -1);
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+}
+
+.form-error::before {
+  content: '⚠';
+  font-size: var(--text-sm);
 }
 
 .form-help {
-  font-size: 0.8125rem;
-  color: #6b7280;
-  margin-top: -0.25rem;
+  font-size: var(--text-xs);
+  color: var(--color-text-secondary);
+  margin-top: calc(var(--space-xs) * -1);
+  font-style: italic;
 }
 
 .form-actions {
   display: flex;
-  gap: 0.75rem;
+  gap: var(--space-sm);
   justify-content: flex-end;
-  margin-top: 0.5rem;
+  margin-top: var(--space-md);
+  padding-top: var(--space-md);
+  border-top: 1px solid var(--color-gray-200);
 }
 </style>

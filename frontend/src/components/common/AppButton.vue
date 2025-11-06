@@ -68,70 +68,80 @@ const buttonClasses = computed(() => {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  font-weight: 500;
-  border-radius: 0.375rem;
-  transition: all 0.2s;
+  font-weight: var(--weight-semibold);
+  border-radius: var(--radius-md);
+  transition: var(--transition-all);
   cursor: pointer;
   border: 1px solid transparent;
-  font-family: inherit;
+  font-family: var(--font-primary);
 }
 
 .app-button:focus {
   outline: none;
-  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3);
+  box-shadow: 0 0 0 3px rgba(255, 107, 107, 0.3);
 }
 
 /* Size variants */
 .app-button--sm {
-  padding: 0.5rem 1rem;
-  font-size: 0.875rem;
+  padding: var(--space-sm) var(--space-md);
+  font-size: var(--text-sm);
 }
 
 .app-button--md {
   padding: 0.625rem 1.25rem;
-  font-size: 0.9375rem;
+  font-size: var(--text-base);
 }
 
 .app-button--lg {
-  padding: 0.75rem 1.5rem;
-  font-size: 1rem;
+  padding: var(--space-md) var(--space-lg);
+  font-size: var(--text-lg);
 }
 
-/* Color variants */
+/* Color variants with gradients */
 .app-button--primary {
-  background-color: #3b82f6;
-  color: white;
+  background: var(--gradient-primary-btn);
+  color: var(--color-text-inverse);
+  box-shadow: var(--shadow-primary);
 }
 
 .app-button--primary:hover:not(.app-button--disabled):not(.app-button--loading) {
-  background-color: #2563eb;
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-xl);
 }
 
 .app-button--secondary {
-  background-color: #6b7280;
-  color: white;
+  background: var(--gradient-secondary-btn);
+  color: var(--color-text-inverse);
+  box-shadow: var(--shadow-secondary);
 }
 
 .app-button--secondary:hover:not(.app-button--disabled):not(.app-button--loading) {
-  background-color: #4b5563;
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-xl);
 }
 
 .app-button--danger {
-  background-color: #ef4444;
-  color: white;
+  background: var(--color-error);
+  color: var(--color-text-inverse);
+  box-shadow: var(--shadow-primary);
 }
 
 .app-button--danger:hover:not(.app-button--disabled):not(.app-button--loading) {
-  background-color: #dc2626;
+  background: var(--color-error-dark);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-xl);
 }
 
 .app-button--success {
-  background-color: #10b981;
-  color: white;
+  background: var(--color-success);
+  color: var(--color-text-inverse);
+  box-shadow: var(--shadow-secondary);
 }
 
 .app-button--success:hover:not(.app-button--disabled):not(.app-button--loading) {
-  background-color: #059669;
+  background: var(--color-success-dark);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-xl);
 }
 
 /* State variants */
