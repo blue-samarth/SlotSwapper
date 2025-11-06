@@ -9,11 +9,9 @@
 - **State Management:** Pinia
 - **Routing:** Vue Router
 - **HTTP Client:** Axios
-- **UI Framework:** Tailwind CSS / Vuetify / PrimeVue (TBD)
-- **Date/Time:** date-fns or Day.js
-- **Calendar:** FullCalendar Vue
-- **Form Validation:** Vuelidate or VeeValidate
-- **Icons:** Heroicons / Material Icons
+- **UI Framework:** Tailwind CSS v4
+- **Date/Time:** date-fns
+- **Icons:** Heroicons
 
 **Estimated Time:** 12-14 hours
 
@@ -78,7 +76,7 @@ frontend/
 │   │   └── users.api.ts       # User endpoints
 │   ├── assets/                # Static assets
 │   │   ├── styles/
-│   │   │   └── main.css       # Global styles
+│   │   │   └── main.css       # Tailwind v4 with @import
 │   │   └── images/
 │   ├── components/            # Reusable components
 │   │   ├── common/
@@ -151,7 +149,7 @@ frontend/
 ├── .prettierrc                # Prettier configuration
 ├── index.html                 # HTML entry point
 ├── package.json               # Dependencies
-├── tailwind.config.js         # Tailwind configuration
+├── postcss.config.js          # PostCSS configuration for Tailwind v4
 ├── tsconfig.json              # TypeScript configuration
 ├── tsconfig.node.json         # TypeScript Node configuration
 └── vite.config.ts             # Vite configuration
@@ -164,7 +162,7 @@ frontend/
 ### Tasks:
 1. Initialize Vite project with Vue 3 + TypeScript
 2. Install dependencies
-3. Configure Tailwind CSS
+3. Configure Tailwind CSS v4
 4. Set up ESLint & Prettier
 5. Create basic folder structure
 6. Configure environment variables
@@ -174,12 +172,150 @@ frontend/
 cd frontend
 npm create vite@latest . -- --template vue-ts
 npm install
-npm install -D tailwindcss postcss autoprefixer
-npx tailwindcss init -p
+npm install -D tailwindcss@latest postcss autoprefixer
 npm install vue-router@4 pinia axios
 npm install @vueuse/core
 npm install date-fns
 npm install @heroicons/vue
+```
+
+### Tailwind CSS v4 Configuration:
+
+**File: `postcss.config.js`**
+```javascript
+export default {
+  plugins: {
+    '@tailwindcss/postcss': {}
+  }
+}
+```
+
+**File: `vite.config.ts`**
+```typescript
+import { defineConfig } from 'vite'
+import vue from '@vitejs/plugin-vue'
+import { fileURLToPath, URL } from 'node:url'
+
+export default defineConfig({
+  plugins: [vue()],
+  resolve: {
+    alias: {
+      '@': fileURLToPath(new URL('./src', import.meta.url))
+    }
+  }
+})
+```
+
+**File: `src/assets/styles/main.css`**
+```css
+@import "tailwindcss";
+
+/* Custom CSS Variables for Theme */
+@theme {
+  /* Colors */
+  --color-primary: #3b82f6;
+  --color-secondary: #6b7280;
+  --color-success: #10b981;
+  --color-warning: #f59e0b;
+  --color-danger: #ef4444;
+  --color-info: #06b6d4;
+  
+  /* Event Status Colors */
+  --color-status-busy: #ef4444;
+  --color-status-swappable: #10b981;
+  --color-status-pending: #f59e0b;
+  
+  /* Swap Status Colors */
+  --color-swap-pending: #eab308;
+  --color-swap-accepted: #10b981;
+  --color-swap-rejected: #ef4444;
+  --color-swap-cancelled: #6b7280;
+  
+  /* Spacing */
+  --spacing-xs: 0.25rem;
+  --spacing-sm: 0.5rem;
+  --spacing-md: 1rem;
+  --spacing-lg: 1.5rem;
+  --spacing-xl: 2rem;
+  --spacing-2xl: 3rem;
+  --spacing-3xl: 4rem;
+}
+
+/* Base styles */
+body {
+  font-family: ui-sans-serif, system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Custom component styles */
+.btn-primary {
+  @apply bg-[var(--color-primary)] text-white px-4 py-2 rounded-lg hover:opacity-90 transition-opacity disabled:opacity-50 disabled:cursor-not-allowed;
+}
+
+.btn-secondary {
+  @apply bg-[var(--color-secondary)] text-white px-4 py-2 rounded-lg hover:opacity-90 transition-opacity disabled:opacity-50 disabled:cursor-not-allowed;
+}
+
+.btn-danger {
+  @apply bg-[var(--color-danger)] text-white px-4 py-2 rounded-lg hover:opacity-90 transition-opacity disabled:opacity-50 disabled:cursor-not-allowed;
+}
+
+.badge-busy {
+  @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-[var(--color-status-busy)] text-white;
+}
+
+.badge-swappable {
+  @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-[var(--color-status-swappable)] text-white;
+}
+
+.badge-swap-pending {
+  @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-[var(--color-status-pending)] text-white;
+}
+
+.badge-swap-status-pending {
+  @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-[var(--color-swap-pending)] text-white;
+}
+
+.badge-swap-status-accepted {
+  @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-[var(--color-swap-accepted)] text-white;
+}
+
+.badge-swap-status-rejected {
+  @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-[var(--color-swap-rejected)] text-white;
+}
+
+.badge-swap-status-cancelled {
+  @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-[var(--color-swap-cancelled)] text-white;
+}
+
+.card {
+  @apply bg-white rounded-lg shadow-md p-6 border border-gray-200;
+}
+
+.input-field {
+  @apply w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)] focus:border-transparent;
+}
+
+.label {
+  @apply block text-sm font-medium text-gray-700 mb-1;
+}
+```
+
+**File: `src/main.ts`**
+```typescript
+import { createApp } from 'vue'
+import { createPinia } from 'pinia'
+import App from './App.vue'
+import router from './router'
+import './assets/styles/main.css'
+
+const app = createApp(App)
+
+app.use(createPinia())
+app.use(router)
+
+app.mount('#app')
 ```
 
 ### Environment Variables (.env.development):
