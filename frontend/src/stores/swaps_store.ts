@@ -18,18 +18,14 @@ export const useSwapsStore = defineStore('swaps', () => {
     
     try {
       const response = await swapsApi.getSwappableSlots();
+      console.log('=== FETCH SWAPPABLE SLOTS DEBUG ===');
+      console.log('Full Axios response:', response);
+      console.log('response.data:', response.data);
+      console.log('response.data.data:', (response.data as any).data);
       
       // Backend wraps response in { message, data } structure
-      const data = (response.data as any).data;
-      
-      // Handle null/undefined data from backend
-      if (data === null || data === undefined) {
-        swappableSlots.value = [];
-      } else if (Array.isArray(data)) {
-        swappableSlots.value = data;
-      } else {
-        swappableSlots.value = [];
-      }
+      swappableSlots.value = (response.data as any).data || response.data || [];
+      console.log('Stored swappableSlots:', swappableSlots.value);
     } catch (e: any) {
       error.value = e.response?.data?.message || 'Failed to fetch swappable slots';
       swappableSlots.value = [];
@@ -45,8 +41,7 @@ export const useSwapsStore = defineStore('swaps', () => {
     
     try {
       const response = await swapsApi.getSentSwapRequests();
-      const data = (response.data as any).data;
-      sentRequests.value = Array.isArray(data) ? data : [];
+      sentRequests.value = response.data || [];
     } catch (e: any) {
       error.value = e.response?.data?.message || 'Failed to fetch sent requests';
       sentRequests.value = [];
@@ -62,8 +57,7 @@ export const useSwapsStore = defineStore('swaps', () => {
     
     try {
       const response = await swapsApi.getReceivedSwapRequests();
-      const data = (response.data as any).data;
-      receivedRequests.value = Array.isArray(data) ? data : [];
+      receivedRequests.value = response.data || [];
     } catch (e: any) {
       error.value = e.response?.data?.message || 'Failed to fetch received requests';
       receivedRequests.value = [];

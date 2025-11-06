@@ -81,22 +81,22 @@ const handleRejectSwap = async (id: number) => {
 
       <div class="space-y-4">
         <div
-          v-for="(request, index) in receivedRequests"
-          :key="request?.id || `request-${index}`"
+          v-for="request in receivedRequests"
+          :key="request.id"
           class="bg-white rounded-lg shadow hover:shadow-md transition-shadow p-6"
         >
           <div class="flex justify-between items-start mb-4">
             <h3 class="font-semibold text-lg text-gray-900">Swap Request Received</h3>
-            <span v-if="request?.status" :class="['px-3 py-1 rounded-full text-xs font-semibold border', getStatusColor(request.status)]">
+            <span :class="['px-3 py-1 rounded-full text-xs font-semibold border', getStatusColor(request.status)]">
               {{ getStatusIcon(request.status) }} {{ request.status }}
             </span>
           </div>
 
-          <div v-if="request?.requester_event && request?.receiver_event" class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-4">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-4">
             <!-- Their Event -->
             <div class="border-l-4 border-purple-500 pl-4 bg-purple-50 rounded-r-lg p-4">
               <div class="text-xs font-semibold text-purple-600 uppercase mb-2">They Offer</div>
-              <h4 class="font-semibold text-gray-900 text-lg">{{ request.requester_event.title || 'Untitled Event' }}</h4>
+              <h4 class="font-semibold text-gray-900 text-lg">{{ request.requester_event.title }}</h4>
               <div v-if="request.requester_event.start_time" class="text-sm text-gray-600 mt-2 space-y-1">
                 <div>📅 {{ formatDate(request.requester_event.start_time) }}</div>
                 <div>🕐 {{ formatTime(request.requester_event.start_time) }}</div>
@@ -106,7 +106,7 @@ const handleRejectSwap = async (id: number) => {
             <!-- Your Event -->
             <div class="border-l-4 border-blue-500 pl-4 bg-blue-50 rounded-r-lg p-4">
               <div class="text-xs font-semibold text-blue-600 uppercase mb-2">Your Event</div>
-              <h4 class="font-semibold text-gray-900 text-lg">{{ request.receiver_event.title || 'Untitled Event' }}</h4>
+              <h4 class="font-semibold text-gray-900 text-lg">{{ request.receiver_event.title }}</h4>
               <div v-if="request.receiver_event.start_time" class="text-sm text-gray-600 mt-2 space-y-1">
                 <div>📅 {{ formatDate(request.receiver_event.start_time) }}</div>
                 <div>🕐 {{ formatTime(request.receiver_event.start_time) }}</div>
@@ -118,7 +118,7 @@ const handleRejectSwap = async (id: number) => {
             <div v-if="request.created_at" class="text-sm text-gray-500">
               Received on {{ formatDate(request.created_at) }}
             </div>
-            <div v-if="request.status === SwapStatus.PENDING && request?.id" class="flex gap-2">
+            <div v-if="request.status === SwapStatus.PENDING" class="flex gap-2">
               <button
                 @click="handleRejectSwap(request.id)"
                 class="px-4 py-2 text-sm font-medium text-red-600 hover:bg-red-50 border border-red-200 rounded-lg transition-colors"

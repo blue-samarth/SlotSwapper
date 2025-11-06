@@ -3,7 +3,6 @@ import { ref, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
 import { useAuthStore } from '../stores/auth_store';
 import { useEventsStore } from '../stores/event_store';
-import { useSwapsStore } from '../stores/swaps_store';
 import { useToast } from '../composables/useToast';
 import type { Event, EventStatus } from '../types/event_types';
 import AppModal from '../components/common/AppModal.vue';
@@ -16,7 +15,6 @@ import LoadingSpinner from '../components/common/LoadingSpinner.vue';
 const router = useRouter();
 const authStore = useAuthStore();
 const eventsStore = useEventsStore();
-const swapsStore = useSwapsStore();
 const toast = useToast();
 
 // Modal state
@@ -74,23 +72,14 @@ const handleCreateSubmit = async (data: {
 const handleDelete = async () => {
   if (!selectedEvent.value) return;
   
-  // Check if event has pending swaps
-  if (selectedEvent.value.status === 'SWAP_PENDING') {
-    toast.warning('Cannot delete event with pending swap. Please cancel the swap request first.');
-    showDeleteModal.value = false;
-    return;
-  }
-  
   isSubmitting.value = true;
   try {
     await eventsStore.deleteEvent(selectedEvent.value.id);
     showDeleteModal.value = false;
     toast.success('Event deleted successfully!');
-  } catch (error: any) {
+  } catch (error) {
     console.error('Failed to delete event:', error);
-    const errorMessage = error.response?.data?.error || 'Failed to delete event. Please try again.';
-    toast.error(errorMessage);
-    showDeleteModal.value = false;
+    toast.error('Failed to delete event. Please try again.');
   } finally {
     isSubmitting.value = false;
   }

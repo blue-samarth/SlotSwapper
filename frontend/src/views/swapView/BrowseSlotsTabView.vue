@@ -39,13 +39,6 @@ const handleRequestSwap = async (theirSlotId: number) => {
 
   try {
     await swapsStore.initiateSwap(requestData);
-    
-    // Refresh the sent requests list to show the new swap immediately
-    await swapsStore.fetchSentRequests();
-    
-    // Also refresh events to update status to SWAP_PENDING
-    await eventsStore.fetchEvents();
-    
     alert('Swap request sent successfully!');
   } catch (error: any) {
     console.error('Swap request error:', error);
@@ -75,8 +68,8 @@ const handleRequestSwap = async (theirSlotId: number) => {
 
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         <div
-          v-for="(slot, index) in availableSlots"
-          :key="slot?.id || `slot-${index}`"
+          v-for="slot in availableSlots"
+          :key="slot.id"
           class="bg-white rounded-lg shadow hover:shadow-lg transition-shadow p-6"
         >
           <div class="flex justify-between items-start mb-4">
@@ -102,10 +95,10 @@ const handleRequestSwap = async (theirSlotId: number) => {
           </div>
 
           <button
-            @click="slot?.id && handleRequestSwap(slot.id)"
-            :disabled="myEvents.length === 0 || !slot?.id"
+            @click="handleRequestSwap(slot.id)"
+            :disabled="myEvents.length === 0"
             class="w-full bg-blue-600 text-white py-2.5 rounded-lg hover:bg-blue-700 transition-colors font-medium disabled:bg-gray-300 disabled:cursor-not-allowed"
-            :title="myEvents.length === 0 ? 'You need swappable events to request a swap' : !slot?.id ? 'Invalid slot' : 'Request swap with this slot'"
+            :title="myEvents.length === 0 ? 'You need swappable events to request a swap' : 'Request swap with this slot'"
           >
             {{ myEvents.length === 0 ? 'No Swappable Events' : 'Request Swap' }}
           </button>
