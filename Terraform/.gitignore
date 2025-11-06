@@ -1,0 +1,5 @@
+# Ignore Terraform secrets
+secrets.tfvars
+*.auto.tfvars
+*.tfstate
+*.tfstate.backup
