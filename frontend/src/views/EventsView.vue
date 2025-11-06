@@ -80,7 +80,6 @@ const handleDelete = async () => {
     showDeleteModal.value = false;
     return;
   }
-  
   isSubmitting.value = true;
   try {
     await eventsStore.deleteEvent(selectedEvent.value.id);
