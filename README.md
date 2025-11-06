@@ -108,7 +108,7 @@ SlotSwapper/
 
 ### For Local Development
 
-- Go 1.21 or higher
+- Go 1.24 or higher
 - Node.js 20.x or higher
 - PostgreSQL 16.x or higher
 - npm or yarn package manager
@@ -486,25 +486,25 @@ Authorization: Bearer <token>
 
 ### Backend
 
-- **Language**: Go 1.21
-- **Web Framework**: Gin 1.9
+- **Language**: Go 1.24
+- **Web Framework**: Gin 1.11
 - **Database**: PostgreSQL 16
-- **ORM**: GORM 1.25
-- **Authentication**: JWT (golang-jwt/jwt)
+- **ORM**: GORM 1.31
+- **Authentication**: JWT (golang-jwt/jwt v5.3)
 - **Password Hashing**: bcrypt
-- **Environment Variables**: godotenv
+- **Environment Variables**: godotenv 1.5
 - **Testing**: Go standard testing package
 
 ### Frontend
 
-- **Framework**: Vue 3.4
-- **Language**: TypeScript 5.3
-- **Build Tool**: Vite 5.x
-- **State Management**: Pinia 2.1
-- **Routing**: Vue Router 4.2
-- **HTTP Client**: Axios 1.6
-- **Styling**: Tailwind CSS 4.0
-- **CSS Processing**: PostCSS with Tailwind plugin
+- **Framework**: Vue 3.5
+- **Language**: TypeScript 5.9
+- **Build Tool**: Vite 7.1
+- **State Management**: Pinia 3.0
+- **Routing**: Vue Router 4.6
+- **HTTP Client**: Axios 1.13
+- **Styling**: Tailwind CSS 4.1
+- **CSS Processing**: PostCSS 8.5 with Tailwind plugin
 
 ### DevOps
 
