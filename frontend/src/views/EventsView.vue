@@ -3,7 +3,6 @@ import { ref, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
 import { useAuthStore } from '../stores/auth_store';
 import { useEventsStore } from '../stores/event_store';
-import { useSwapsStore } from '../stores/swaps_store';
 import { useToast } from '../composables/useToast';
 import type { Event, EventStatus } from '../types/event_types';
 import AppModal from '../components/common/AppModal.vue';
@@ -16,7 +15,6 @@ import LoadingSpinner from '../components/common/LoadingSpinner.vue';
 const router = useRouter();
 const authStore = useAuthStore();
 const eventsStore = useEventsStore();
-const swapsStore = useSwapsStore();
 const toast = useToast();
 
 // Modal state
